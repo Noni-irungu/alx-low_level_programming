@@ -4,7 +4,7 @@
  * cap_string - Capitilization of all words of a string
  * @str: The string to be capitilized
  *
- * Return: A pointer to the chnaged string.
+ * Return: A pointer to the changed string.
  */
 char *cap_string(char *str)
 {
