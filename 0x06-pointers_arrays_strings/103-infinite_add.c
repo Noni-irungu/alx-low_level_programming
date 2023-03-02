@@ -1,87 +1,49 @@
 #include "main.h"
 
 /**
- * infinite_add - Add up two numbers stored in given char arrays
- * @n1: The first number
- * @n2: The second number
- * @r: Pointer to the buffer to store result
- * @size_r: The size of the buffer
+ * infinite_add - Adds the numbers stored in the two strings
+ * @n1: The first number to be added
+ * @n2: The second number to be added
+ * @r: the buffer to store the result
+ * @r_index: The current index of the buffer
  *
- * Return: 0 if buffer too small to store result, else return pointer to buffer
+ * Return: If r can store the sum - a pointer to the rsult.
+ *	If r cannot store the sum - 0.
  */
-char *infinite_add(char *n1, char *n2, char *r, int size_r)
+char *infinite_add(char *n1, char *n2, char *r, int r_index)
 {
-	int carry = 0, index = 0, index2;
-	char *s1 = n1, *s2 = n2;
+	int num, tens = 0;
 
-	while (*s1 != 0)
-		s1++;
-	while (*s2 != 0)
-		s2++;
-	size_r--;
-	r[size_r] = 0;
-	s1--;
-	s2--;
-	while (s2 != n2 - 1 && s1 != n1 - 1)
+	for (; *n1 && *n2; n1--, n2--, r_index--)
 	{
-		r[index] = *s2 - '0' + *s1 + carry;
-		carry = 0;
-		if (r[index] > '9')
-		{
-			carry++;
-			r[index] -= 10;
-		}
-		index++;
-		s2--;
-		s1--;
-		if (size_r == index && (s1 != n1 - 1 || s2 != n2 - 1 || carry == 1))
-			return (0);
+		num = (*n1 - '0') + (*n2 - '0');
+		num += tens;
+		*(r + r_index) = (num % 10) + '0';
+		tens = num / 10;
 	}
-	while (s1 != n1 - 1)
+
+	for (; *n1; n1--, r_index--)
 	{
-		r[index] = *s1 + carry;
-		carry = 0;
-		if (r[index] > '9')
-		{
-			carry = 1;
-			r[index] -= 10;
-		}
-		s1--;
-		index++;
-		if (size_r == index && (s1 != n1 - 1 ||  carry == 1))
-			return (0);
+		num = (*n1 - '0') + tens;
+		*(r + r_index) = (num % 10) + '0';
+		tens = num / 10;
 	}
-	while (s2 != n2 - 1)
+
+	for (; *n2; n2--, r_index--)
 	{
-		r[index] = *s2 + carry;
-		carry = 0;
-		if (r[index] > '9')
-		{
-			carry = 1;
-			r[index] -= 10;
-		}
-		s2--;
-		index++;
-		if (size_r == index && (s2 != n2 - 1 || carry == 1))
-			return (0);
+		num = (*n2 - '0') + tens;
+		*(r + r_index) = (num % 10) + '0';
+		tens = num / 10;
 	}
-	if (carry == 1)
+
+	if (tens && r_index >= 0)
 	{
-		r[index] = '1';
-		r[index + 1] = 0;
+		*(r + r_index) = (tens % 10) + '0';
+		return (r + r_index);
 	}
-	else
-	{
-		r[index--] = 0;
-	}
-	index2 = 0;
-	while (index2 <= index)
-	{
-		carry = r[index];
-		r[index] = r[index2];
-		r[index2] = carry;
-		index--;
-		index2++;
-	}
-	return (r);
+
+	else if (tens && r_index < 0)
+		return (0);
+
+	return (r + r_index + 1);
 }
