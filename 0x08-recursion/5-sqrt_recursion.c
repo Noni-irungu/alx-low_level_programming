@@ -21,13 +21,14 @@ int _sqrt_recursion(int n)
 	}
 	else
 	{
-		int i = 1, result = 1;
+		int result = (n + 1) / 2;
+		int prev_result = 0;
 
-		while (result <= n)
+		while (result != prev_result)
 		{
-			i++;
-			result = i * i;
+			prev_result = result;
+			result = (result + n / result) / 2;
 		}
-		return (i - 1);
+		return (result);
 	}
 }
