@@ -12,15 +12,17 @@
 int main(int argc, char *argv[])
 {
 	int sum = 0;
-
-	if (argc < 2)
+	/*if no arguments are passed, print 0 and return*/
+	if (argc == 1)
 	{
 		printf("0\n");
 		return (0);
 	}
 
+	/*Loop through each argument*/
 	for (int i = 1; i < argc; i++)
 	{
+		/*Check that each character in the argument is a digit*/
 		for (int j = 0; argv[i][j] != '\0'; j++)
 		{
 			if (!isdigit(argv[i][j]))
@@ -29,6 +31,8 @@ int main(int argc, char *argv[])
 				return (1);
 			}
 		}
+
+		/*Convert the argument to an integer and add to the sum if positive*/
 		int num = atoi(argv[i]);
 
 		if (num > 0)
@@ -36,6 +40,8 @@ int main(int argc, char *argv[])
 			sum += num;
 		}
 	}
+
+	/*Print the sum and return*/
 	printf("%d\n", sum);
 	return (0);
 }
