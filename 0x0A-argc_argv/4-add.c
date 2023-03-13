@@ -1,30 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <string.h>
 
-/**
- * check_num - check - string there are digit
- * @str: array str
- *
- * Return: Always 0 (Success)
- */
-int check_num(char *str)
-{
-	/*Declaring variables*/
-	unsigned int count;
-
-	count = 0;
-	while (count < strlen(str)) /*count string*/
-	{
-		if (!isdigit(str[count])) /*check if str there are digit*/
-		{
-			return (0);
-		}
-		count++;
-	}
-	return (1);
-}
 
 /**
  * main - a program that adds positive numbers
@@ -36,36 +13,38 @@ int check_num(char *str)
 int main(int argc, char *argv[])
 {
 	int sum = 0;
-	/*if no arguments are passed, print 0 and return*/
+
 	if (argc == 1)
 	{
 		printf("0\n");
 		return (0);
 	}
 
-	/*Loop through each argument*/
 	for (int i = 1; i < argc; i++)
 	{
-		/*Check that each character in the argument is a digit*/
-		for (int j = 0; argv[i][j] != '\0'; j++)
+		char *arg = argv[i];
+		int j = 0;
+
+		while (arg[j] != '\0')
 		{
-			if (!isdigit(argv[i][j]))
+			if (!isdigit(arg[j]))
 			{
 				printf("Error\n");
 				return (1);
 			}
+			j++;
 		}
 
-		/*Convert the argument to an integer and add to the sum if positive*/
-		int num = atoi(argv[i]);
+		int num = atoi(arg);
 
-		if (num > 0)
+		if (num <= 0)
 		{
-			sum += num;
+			printf("Error\n");
+			return (1);
 		}
+		sum += num;
 	}
 
-	/*Print the sum and return*/
 	printf("%d\n", sum);
 	return (0);
 }
