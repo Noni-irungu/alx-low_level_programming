@@ -13,32 +13,36 @@
 
 int  main(int argc, char *argv[])
 {
-	int num, j, result;
-	int coins[] = {25, 10, 5, 2, 1};
+	/*Declaring variables*/
+	int posi, tot, chan, aux;
+	int coins[] = {25, 10, 5, 2, 1}; /*Array int*/
+
+	posi = tot = chan = aux = 0;
 
 	if (argc != 2)
 	{
 		printf("Error\n");
 		return (1);
 	}
+	tot = atoi(argv[1]); /*Convert str into int*/
 
-	num = atoi(argv[1]);
-	return (0);
-
-	if (num < 0)
+	if (tot <= 0)
 	{
 		printf("0\n");
 		return (0);
 	}
 
-	for (j = 0; j < 5 && num >= 0; j++)
+	/*Declaring While*/
+	while (coins[posi] != '\0')
 	{
-		while (num >= coins[j])
+		if (tot >= coins[posi])
 		{
-			result++;
-			num -= coins[j];
+			aux = (tot / coins[posi]);
+			chan += aux;
+			tot -= coins[posi] * aux;
 		}
+		posi++;
 	}
-	printf("%d\n", result);
+	printf("%d\n", chan);
 	return (0);
 }
