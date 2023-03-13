@@ -11,18 +11,30 @@
 
 char *_strdup(char *str)
 {
+	char *aaa;
+	int i, r = 0;
+
 	if (str == NULL)
 	{
 		return (NULL);
 	}
-	size_t len = strlen(str) + 1;
-	char *copy = (char *) malloc(len);
+	i = 0;
+	while (str[i] != '\0')
+	{
+		i++;
+	}
 
-	if (copy == NULL)
+	aaa = malloc(sizeof(char) * (i + 1));
+
+	if (aaa == NULL)
 	{
 		return (NULL);
 	}
-	memcpy(copy, str, len);
-	return (copy);
+
+	for (r = 0; str[r]; r++)
+	{
+		aaa[r] = str[r];
+	}
+	return (aaa);
 }
 
