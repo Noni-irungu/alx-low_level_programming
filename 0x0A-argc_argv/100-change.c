@@ -13,42 +13,32 @@
 
 int  main(int argc, char *argv[])
 {
-	/*Check that exactly one argument is passed*/
+	int num, j, result;
+	int coins[] = {25, 10, 5, 2, 1};
+
 	if (argc != 2)
 	{
 		printf("Error\n");
 		return (1);
 	}
 
-	/*Convert the argument to an integer*/
-	int cents = atoi(argv[1]);
+	num = atoi(argv[1]);
+	return (0);
 
-	/*Check that the argument is non-negative*/
-	if (cents < 0)
+	if (num < 0)
 	{
 		printf("0\n");
 		return (0);
 	}
 
-	/*Calculate the minimum number of coins needed*/
-	int coins = 0;
-	int remaining_cents = cents;
-
-	coins += remaining_cents / 25;
-	remaining_cents %= 25;
-
-	coins += remaining_cents / 10;
-	remaining_cents %= 10;
-
-	coins += remaining_cents / 5;
-	remaining_cents %= 5;
-
-	coins += remaining_cents / 2;
-	remaining_cents %= 2;
-
-	coins += remaining_cents;
-
-	/*Print the result and return*/
-	printf("%d\n", coins);
+	for (j = 0; j < 5 && num >= 0; j++)
+	{
+		while (num >= coins[j])
+		{
+			result++;
+			num -= coins[j];
+		}
+	}
+	printf("%d\n", result);
 	return (0);
 }
