@@ -1,14 +1,13 @@
 #include "main.h"
-#include <stddef.h>
 #include <stdlib.h>
 
 /**
  * create_array - creates an array of chars,
  * and initializes it with a specific char.
- * @c: character to be checked
- * @size: the byte of c
+ * @c: character to assign
+ * @size: size of array
  *
- * Return: Always 0 (Success)
+ * Return: pointer to array, NULL if fail
  */
 
 
