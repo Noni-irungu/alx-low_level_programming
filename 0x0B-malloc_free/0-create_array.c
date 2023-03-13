@@ -7,8 +7,6 @@
  * and initializes it with a specific char.
  * @c: character to be checked
  * @size: the byte of c
- * size = 0: Returns NULL
- * size != 0: Returns a pointer to the array or NULL
  *
  * Return: Always 0 (Success)
  */
@@ -16,23 +14,23 @@
 
 char *create_array(unsigned int size, char c)
 {
-	char *arr = NULL;  /*initialize array pointer to NULL*/
+	char *arr = NULL;
 
 	if (size == 0)
 	{
-		return (NULL); /*return NULL if size = 0*/
+		return (NULL);
 	}
 
-	arr = malloc(size * sizeof(char));  /*allocate memory for the array*/
+	arr = malloc(size * sizeof(char));
 
 	if (arr == NULL)
 	{
-		return (NULL);  /*return NULL if memory allocation fails*/
+		return (NULL);
 	}
 
 	for (unsigned int i = 0; i < size; i++)
 	{
-		arr[i] = c;  /*initialize the array with the specific char*/
+		arr[i] = c;
 	}
-	return (arr);  /*return the pointer to the array*/
+	return (arr);
 }
