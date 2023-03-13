@@ -31,19 +31,24 @@ int  main(int argc, char *argv[])
 	}
 
 	/*Calculate the minimum number of coins needed*/
-	int num_coins = 0;
+	int coins = 0;
+	int remaining_cents = cents;
 
-	num_coins += cents / 25;
-	cents %= 25;
-	num_coins += cents / 10;
-	cents %= 10;
-	num_coins += cents / 5;
-	cents %= 5;
-	num_coins += cents / 2;
-	cents %= 2;
-	num_coins += cents;
+	coins += remaining_cents / 25;
+	remaining_cents %= 25;
+
+	coins += remaining_cents / 10;
+	remaining_cents %= 10;
+
+	coins += remaining_cents / 5;
+	remaining_cents %= 5;
+
+	coins += remaining_cents / 2;
+	remaining_cents %= 2;
+
+	coins += remaining_cents;
 
 	/*Print the result and return*/
-	printf("%d\n", num_coins);
+	printf("%d\n", coins);
 	return (0);
 }
