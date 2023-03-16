@@ -4,33 +4,33 @@
 /**
  * array_range - creates an array of integrs filled with numbers
  * from min to max
- * @min: least number of array(minimum)
- * @max: largest number in the array(maximum)
+ * @min: minimum value
+ * @max: maximum value
  *
- * Return: pointer to array
+ * Return: pointer to the newly created array
+ * if man > mix, returns NULL.
+ * if malloc fails, returns NULL.
  */
 int *array_range(int min, int max)
 {
-	int *ptr;
-	int i, size;
+	int *ar;
+	int i;
 
 	if (min > max)
 	{
 		return (NULL);
 	}
 
-	size = max - min + 1;
+	ar = malloc(sizeof(*ar) * ((max - min) + 1));
 
-	ptr = malloc(sizeof(int) * size);
-
-	if (ptr == NULL)
+	if (ar == NULL)
 	{
 		return (NULL);
 	}
 
 	for (i = 0; min <= max; i++)
 	{
-		ptr[i] = min++;
+		ar[i] = min;
 	}
-	return (ptr);
+	return (ar);
 }
