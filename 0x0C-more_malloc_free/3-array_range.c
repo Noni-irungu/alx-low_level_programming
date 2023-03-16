@@ -1,3 +1,4 @@
+#include <stdlb.h>
 #include "main.h"
 
 /**
@@ -6,26 +7,30 @@
  * @min: least number of array(minimum)
  * @max: largest number in the array(maximum)
  *
- * Return: pointer to new array, Null if failed.
+ * Return: pointer to array
  */
 int *array_range(int min, int max)
 {
-	int *ry, i = 0, k = min;
+	int *ry,
+	int i, size;
 
 	if (min > max)
 	{
-		return (0);
+		return (NULL);
 	}
 
-	ry = malloc(max - min + 1) * sizeof(int));
+	size = max - min + 1;
 
-	if (!ry)
+	ry = malloc(sizeof(int) * size);
+
+	if (ry == NULL)
 	{
-		return (0);
+		return (NULL);
 	}
-	while (i <= max - min)
+
+	for (i = 0; min <= max; i++)
 	{
-		ry[i++] = k++;
+		ry[i] = min++;
 	}
 	return (ry);
 }
