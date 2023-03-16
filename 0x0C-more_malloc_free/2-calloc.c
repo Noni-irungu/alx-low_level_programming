@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "main.h"
 
 /**
@@ -27,15 +28,15 @@ char *_memset(char *s, char b, unsigned int n)
  */
 void *_calloc(unsigned int nmemb, unsigned int size)
 {
-	void *z;
+	char *z;
 
 	if (nmemb == 0 || size == 0)
 		return (NULL);
 
-	h = malloc(nmemb * size);
+	z = malloc(size * nmemb);
 
-	if (h == NULL)
+	if (z == NULL)
 		return (NULL);
-	_memset(h, 0, (nmemb * size));
+	_memset(z, 0, (nmemb * size));
 	return (h);
 }
