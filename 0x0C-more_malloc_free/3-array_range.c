@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <string.h>
 #include <stdlb.h>
 #include "main.h"
 
@@ -8,31 +6,23 @@
  * @min: minimum value
  * @max: maximum value
  *
- * Return: pointer to the array
+ * Return: pointer to newly allocated memory or NULL if fails
  */
 int *array_range(int min, int max)
 {
-	int i;
-	int j;
-	int *p;
-	int size;
+	int i, l;
+	int *a;
 
 	if (min > max)
-	{
 		return (NULL);
-	}
-	size = (max - min) + 1);
-	p = malloc(size * sizeof(int);
-
-	if (p == NULL)
+	l = max - min + 1;
+	a = malloc(sizeof(int) * l);
+	if (a == NULL)
 		return (NULL);
-	j = 0;
-
-	for (i = min; i <= max; i++)
+	for (i = 0; i < l; i++, min++)
 	{
-		p[j] = i;
-		j++;
+		a[i] = min;
 	}
-	return (p);
+	return (a);
 }
 
