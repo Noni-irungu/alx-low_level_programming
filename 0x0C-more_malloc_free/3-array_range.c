@@ -2,8 +2,7 @@
 #include "main.h"
 
 /**
- * array_range - creates an array of integrs filled with numbers
- * from min to max
+ * array_range - creates an array of integrs
  * @min: minimum value
  * @max: maximum value
  *
@@ -13,24 +12,22 @@
  */
 int *array_range(int min, int max)
 {
-	int *ar;
-	int i;
+	int range, i;
+	int *p;
+
+	range = 0
 
 	if (min > max)
 	{
 		return (NULL);
 	}
+	range = ((max + 1) - min);
 
-	ar = malloc(sizeof(*ar) * ((max - min) + 1));
+	p = malloc(range * sizeof(int);
 
-	if (ar == NULL)
-	{
+	if (p == NULL)
 		return (NULL);
-	}
-
 	for (i = 0; min <= max; i++)
-	{
-		ar[i] = min;
-	}
-	return (ar);
+		*(p + i) = min + i;
+	return (p);
 }
