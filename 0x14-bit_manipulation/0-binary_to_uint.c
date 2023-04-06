@@ -1,5 +1,3 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include "main.h"
 
 /**
@@ -10,38 +8,18 @@
   */
 unsigned int binary_to_uint(const char *b)
 {
-	unsigned int len = 0, count = 0, sum = 0;
+	int i;
+	unsigned int dec_val = 0;
 
-	if (b == NULL)
+	if (!b)
 		return (0);
 
-	len = _strlen(b);
-	while (len--)
+	for (i = 0; b[i]; i++)
 	{
-		if (b[len] != 48 && b[len] != 49)
+		if (b[i] < '0' || b[i] > '1')
 			return (0);
-
-		if (b[len] == 49)
-			sum += 1 << count;
-
-		count++;
+		dec_val = 2 * dec_val + (b[i] - '0');
 	}
 
-	return (sum);
-}
-
-/**
-  * _strlen - Returns the length of a string
-  * @s: String to count
-  *
-  * Return: String length
-  */
-int _strlen(const char *s)
-{
-	int c = 0;
-
-	while (s[c])
-		c++;
-
-	return (c);
+	return (dec_val);
 }
