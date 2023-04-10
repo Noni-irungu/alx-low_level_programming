@@ -35,6 +35,7 @@ Create a function that creates a file.
     if filename is NULL return -1
     if text_content is NULL create an empty file
 
+
 	2. Speak gently, she can hear 
 Write a function that appends text at the end of a file.
 
@@ -80,5 +81,3 @@ Write a program that displays the information contained in the ELF header at the
     You are allowed to use read a maximum of 2 times at runtime
     You are allowed to have as many functions as you want in your source file
     You are allowed to use printf
-
-man elf, readelf
