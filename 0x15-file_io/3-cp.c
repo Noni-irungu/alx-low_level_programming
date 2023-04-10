@@ -7,7 +7,7 @@ void close_file(int fd);
 
 /**
  * create_buffer - Allocates 1024 bytes for a buffer.
- * @file: name of the file buffer is storing chars for.
+ * @file:name of the file buffer is storing chars for.
  *
  * Return: pointer to the newly-allocated buffer.
  */
@@ -29,7 +29,7 @@ char *create_buffer(char *file)
 
 /**
  * close_file - Closes file descriptors.
- * @fd: The file descriptor to be closed.
+ * @fd: file descriptor to be closed.
  */
 void close_file(int fd)
 {
@@ -58,7 +58,7 @@ void close_file(int fd)
  */
 int main(int argc, char *argv[])
 {
-	int from, to, t, k;
+	int from, to, r, w;
 	char *buffr;
 
 	if (argc != 3)
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
-		if (from == -1 || t == -1)
+		if (from == -1 || r == -1)
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't read from file %s\n", argv[1]);
@@ -81,8 +81,8 @@ int main(int argc, char *argv[])
 			exit(98);
 		}
 
-		k = write(to, buffr, t);
-		if (to == -1 || k == -1)
+		w = write(to, buffr, r);
+		if (to == -1 || w == -1)
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't write to %s\n", argv[2]);
@@ -90,10 +90,10 @@ int main(int argc, char *argv[])
 			exit(99);
 		}
 
-		t = read(from, buffr, 1024);
+		r = read(from, buffr, 1024);
 		to = open(argv[2], O_WRONLY | O_APPEND);
 
-	} while (t > 0);
+	} while (r > 0);
 
 	free(buffr);
 	close_file(from);
