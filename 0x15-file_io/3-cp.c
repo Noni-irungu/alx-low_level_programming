@@ -2,16 +2,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *create_buffer(char *file);
+char *create_bufr(char *file);
 void close_file(int cx);
 
 /**
- * create_buffer - Allocates 1024 bytes for a buffer.
+ * create_bufr - Allocates 1024 bytes for a buffer.
  * @file: name of the file buffer is storing chars for.
  *
  * Return: pointer to the newly-allocated buffer.
  */
-char *create_buffer(char *file)
+char *create_bufr(char *file)
 {
 	char *bufr;
 
@@ -67,7 +67,7 @@ int main(int argc, char *argv[])
 		exit(97);
 	}
 
-	bufr = create_buffer(argv[2]);
+	bufr = create_bufr(argv[2]);
 	from = open(argv[1], O_RDONLY);
 	t = read(from, bufr, 1024);
 	to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
