@@ -7,8 +7,8 @@
 #include <unistd.h>
 
 int _putchar(char c);
-ssize_t read_textfile(const char *filename, size_t letters);
-int create_file(const char *filename, char *text_content);
-int append_text_to_file(const char *filename, char *text_content);
+ssize_t read_txtfile(const char *filename, size_t letters);
+int create_file(const char *filename, char *txt_content);
+int append_txt_to_file(const char *filename, char *txt_content);
 
 #endif
