@@ -8,23 +8,21 @@
  */
 void print_binary(unsigned long int n)
 {
-	int j = 0;
+	int j, cnt = 0;
+	unsigned long int curnt;
 
-	count = 0;
-	unsigned long int currnt;
-
-	for (j = 63; w >= 0; j--)
+	for (j = 63; j >= 0; j--)
 	{
-		currnt = n >> j;
+		curnt = n >> j;
 
-		if (currnt & 1)
+		if (curnt & 1)
 		{
 			_putchar('1');
-			count++;
+			cnt++;
 		}
-		else if (count)
+		else if (cnt)
 			_putchar('0);
 	}
-	if (!count)
+	if (!cnt)
 		_putchar('0');
 }
