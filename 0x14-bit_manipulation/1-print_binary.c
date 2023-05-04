@@ -3,8 +3,6 @@
 /**
  * print_binary - the function that prints the binary rep of a number
  * @n: the number to be printed in binary
- *
- * Return: 0(success)
  */
 void print_binary(unsigned long int n)
 {
