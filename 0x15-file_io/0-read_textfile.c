@@ -3,19 +3,19 @@
 
 /**
  * read_textfile - the function that reads a text file
- * and prints it to the POSIX standard output.
+ * and prints it to standard output.
  * @filename: text file that's being read
  * @letters: No. of letters to read
  * Return: w - actual No. of bytes read and printed
- * (0)failure or filename is NULL.
+ * (0) when function fails or filename is NULL.
  */
 
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	ssize_t t;
 	char *buffer;
-	ssize_t w;
 	ssize_t fd;
+	ssize_t w;
+	ssize_t t;
 
 	fd = open(filenmame, O_RDONLY);
 	if (fd == -1)
