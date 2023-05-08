@@ -19,12 +19,12 @@ int create_file(const char *filename, char *text_content)
 	if (doss == -1)
 		return (-1);
 
-	if (txt_cotnt)
+	if (text_content)
 	{
-		while (txt_cotnt[wrds] != '\0')
+		while (text_content[wrds] != '\0')
 			wrds++;
 
-		note_status = write(doss, txt_cotnt, wrds);
+		note_status = write(doss, text_content, wrds);
 		if (note_status == -1)
 			return (-1);
 	}
