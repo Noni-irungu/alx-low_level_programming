@@ -6,28 +6,28 @@
  * __exit - the function that prints error messages
  * and exits with exit number
  *
- * @err: exit number or file descriptor
+ * @error: exit number or file descriptor
  * @str: name of file_in or file_out
  * @fd: file descriptor
  *
  * Return: (0)success
 */
-int __exit(int err, char *str, int fd)
+int __exit(int error, char *str, int fd)
 {
-	switch (err)
+	switch (error)
 	{
 		case 97:
 			dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-			exit(err);
+			exit(error);
 		case 98:
 			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", s);
-			exit(err);
+			exit(error);
 		case 99:
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", s);
-			exit(err);
+			exit(error);
 		case 100:
 			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-			exit(err);
+			exit(error);
 		default:
 			return (0);
 	}
