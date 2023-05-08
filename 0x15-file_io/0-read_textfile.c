@@ -6,14 +6,14 @@
  * and prints it to the POSIX standard output.
  * @filename: text file that's being read
  * @letters: No. of letters to read
- * Return: w - actual No. of bytes read and printed
+ * Return: bytes_read - actual No. of bytes read and printed
  *        0 when function fails or filename is NULL.
  */
 
 ssize_t read_textfile(const char *filename, size_t letters)
 {
-	ssize_t total = 0;
-	char buffer[1024];
+	ssize_t total;
+	char buffer;
 	ssize_t bytes_read;
 	ssize_t fd;
 
