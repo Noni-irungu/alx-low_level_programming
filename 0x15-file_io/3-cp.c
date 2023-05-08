@@ -20,13 +20,13 @@ int __exit(int err, char *str, int fd)
 			dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 			exit(err);
 		case 98:
-			dprintf(STDERR_FILENO, "Err: Can't read from file %s\n", s);
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", s);
 			exit(err);
 		case 99:
-			dprintf(STDERR_FILENO, "Err: Can't write to %s\n", s);
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", s);
 			exit(err);
 		case 100:
-			dprintf(STDERR_FILENO, "Err: Can't close fd %d\n", fd);
+			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 			exit(err);
 		default:
 			return (0);
@@ -40,7 +40,12 @@ int __exit(int err, char *str, int fd)
  * @argv: argument vector(array of pointers to the arguments)
  *
  * Return: (0)success.
-*/
+ *
+ * Description: If the argument count is incorrect - exit code 97.
+ * If file_from does not exist or cannot be read - exit code 98.
+ * If file_to cannot be created or written to - exit code 99.
+ * If file_to or file_from cannot be closed - exit code 100.
+ */
 int main(int argc, char *argv[])
 {
 	int file_in, file_out;
