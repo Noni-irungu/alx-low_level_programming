@@ -58,7 +58,7 @@ void close_file(int fd)
 int main(int argc, char *argv[])
 {
 	int mid, via, r, w;
-	char *buff;
+	char *buffer;
 
 	if (arc != 3)
 	{
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
 		exit(97);
 	}
 
-	buff = manu_buff(argv[2]);
+	buffer = create_buffer(argv[2]);
 	mid = open(argv[1], O_RDONLY);
 	r = read(mid, buff, 1024);
 	via = open(arv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
@@ -76,23 +76,23 @@ int main(int argc, char *argv[])
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't read from file %s\n", argv[1]);
-			free(buff);
+			free(buffer);
 			exit(98);
 		}
 
-		w = write(via, buff, r);
+		w = write(via, buffer, r);
 		if (via == -1 || w == -1)
 		{
 			dprintf(STDERR_FILENO,
 				"Error: Can't write to %s\n", argv[2]);
-			free(buff);
+			free(buffer);
 			exit(99);
 		}
 
-		r = read(mid, buff, 1024);
+		r = read(mid, buffer, 1024);
 		via = open(argv[2], O_WRONLY | O_APPEND);
 	} while (r > 0);
-	free(buff);
+	free(buffer);
 	close_file(mid);
 	close_file(via);
 
