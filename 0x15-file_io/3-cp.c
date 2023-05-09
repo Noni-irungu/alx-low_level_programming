@@ -2,10 +2,10 @@
 #include <stdio.h>
 
 /**
- * error_file - checks if file can open.
+ * error_file - checks if files can be opened.
  * @file_from: file_from.
  * @file_to: file_to.
- * @argv: arguments vector(array of arguments)
+ * @argv: arguments vector.
  * Return: no return.
  */
 void error_file(int file_from, int file_to, char *argv[])
@@ -23,35 +23,34 @@ void error_file(int file_from, int file_to, char *argv[])
 }
 
 /**
- * main - the function that copies content
- * of a file to another file
- * @argc: number of arguments passed to the program
- * @argv: double pointer to the arguments
- * Return: always 0(success)
+ * main - check the code for ALX students.
+ * @argc: number of arguments.
+ * @argv: arguments vector.
+ * Return: Always 0.
  */
-int main(argc, char *argv[])
+int main(int argc, char *argv[])
 {
 	int file_from, file_to, err_close;
-	ssize_t nocharas, nwr;
-	char buffer[1024];
+	ssize_t nchars, nwr;
+	char buf[1024];
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		dprintf(STDERR_FILENO, "%s\n", "Usage: cp file_from file_to");
 		exit(97);
 	}
 
 	file_from = open(argv[1], O_RDONLY);
-	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
+	file_to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
 	error_file(file_from, file_to, argv);
 
-	nocharas = 1024;
-	while (nocharas == 1024)
+	nchars = 1024;
+	while (nchars == 1024)
 	{
-		nocharas = read(file_from, buffer, 1024);
-		if (nocharas == -1)
+		nchars = read(file_from, buf, 1024);
+		if (nchars == -1)
 			error_file(-1, 0, argv);
-		nwr = write(file_to, buffer, nocharas);
+		nwr = write(file_to, buf, nchars);
 		if (nwr == -1)
 			error_file(0, -1, argv);
 	}
@@ -71,3 +70,4 @@ int main(argc, char *argv[])
 	}
 	return (0);
 }
+
