@@ -2,28 +2,28 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-char *manu_buff(char *doss);
+char *create_buffer(char *file);
 void close_file(int fd);
 
 /**
- * manu_buff - allocates 1024 for buffer.
- * @doss: name of file buffer is storing characters
+ * create_buffer - allocates 1024 for buffer.
+ * @file: name of file buffer is storing characters
  *
  * Return: the pointer to newly-allocated buffer.
  */
-char *manu_buff(char *doss)
+char *create_buffer(char *file)
 {
-	char *buff;
+	char *buffer;
 
-	buff = malloc(sizeof(char) * 1024);
+	buffer = malloc(sizeof(char) * 1024);
 
-	if (buff == NULL)
+	if (buffer == NULL)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", doss);
 		exit(99);
 	}
 
-	return (buff);
+	return (buffer);
 }
 
 /**
