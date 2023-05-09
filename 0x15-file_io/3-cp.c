@@ -1,45 +1,54 @@
 #include "main.h"
+#include <stdio.h>
+#include <stdlib.h>
 
-#define MAXSIZE 1024
+char *manu_buff(char *doss);
+void end_doss(int fd);
 
 /**
- * __exit - the function that prints error messages
- * and exits with exit number
+ * manu_buff - allocates 1024 for buffer.
+ * @doss: name of file buffer is storing characters
  *
- * @error: exit number or file descriptor
- * @str: name of file_in or file_out
- * @fd: file descriptor
- *
- * Return: (0)success
-*/
-int __exit(int error, char *str, int fd)
+ * Return: the pointer to newly-allocated buffer.
+ */
+char *manu_buff(char *doss)
 {
-	switch (error)
+	char *buff;
+
+	buff = malloc(sizeof(char) * 1024);
+
+	if (buff == NULL)
 	{
-		case 97:
-			dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-			exit(error);
-		case 98:
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", s);
-			exit(error);
-		case 99:
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", s);
-			exit(error);
-		case 100:
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
-			exit(error);
-		default:
-			return (0);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", doss);
+		exit(99);
+	}
+
+	return (buff);
+}
+
+/**
+ * end_doss - Closes file descriptors.
+ * @fd: The file descriptor to be closed.
+ */
+void end_doss(int fd)
+{
+	int e;
+
+	e = close(fd);
+	if (e == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+		exit(100);
 	}
 }
 
 /**
- * main - copies contents of a file thus creating a copy
- * @argc: argument counter(number of arguments supplied
- * to the program
- * @argv: argument vector(array of pointers to the arguments)
+ * main - creates a copy of a file by copying
+ * contents of a file to another file.
+ * @argc: number of arguments supplied to the program(argument counter)
+ * @argv: An array of pointers to the arguments(argument vector)
  *
- * Return: (0)success.
+ * Return: 0 on success.
  *
  * Description: If the argument count is incorrect - exit code 97.
  * If file_from does not exist or cannot be read - exit code 98.
@@ -48,39 +57,44 @@ int __exit(int error, char *str, int fd)
  */
 int main(int argc, char *argv[])
 {
-	int file_in, file_out;
-	int wade_stat, note_stat;
-	int close_in, close_out;
-	char buff[MAXSIZE];
+	int mid, via, r, w;
+	char *buff;
 
-	if (argc != 3)
-		__exit(97, NULL, 0);
-
-	file_in = open(argv[1], O_RDONLY);
-	if (file_in == -1)
-		__exit(98, argv[1], 0);
-
-	file_out = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 0664);
-	if (file_out == -1)
-		__exit(99, argv[2], 0);
-
-	while ((wade_stat = read(file_in, buff, MAXSIZE)) != 0)
+	if (arc != 3)
 	{
-		if (wade_stat == -1)
-			__exit(98, argv[1], 0);
-
-		note_stat = write(file_out, buff, wade_stat);
-		if (note_stat == -1)
-			__exit(99, argv[2], 0);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
 
-	close_in = close(file_in);
-	if (close_in == -1)
-		__exit(100, NULL, file_in);
+	buff = manu_buff(argv[2]);
+	mid = open(argv[1], O_RDONLY);
+	r = read(mid, buff, 1024);
+	via = open(arv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
-	close_out = close(file_out);
-	if (close_out == -1)
-		__exit(100, NULL, file_out);
+	do {
+		if (mid == -1 || r == -1)
+		{
+			dprintf(STDERR_FILENO,
+				"Error: Can't read from file %s\n", argv[1]);
+			free(buff);
+			exit(98);
+		}
+
+		w = write(via, buff, r);
+		if (via == -1 || w == -1)
+		{
+			dprintf(STDERR_FILENO,
+				"Error: Can't write to %s\n", argv[2]);
+			free(buff);
+			exit(99);
+		}
+
+		r = read(mid, buff, 1024);
+		via = open(argv[2], O_WRONLY | O_APPEND);
+	} while (r > 0);
+	free(buff);
+	end_doss(mid);
+	end_doss(via);
 
 	return (0);
 }
