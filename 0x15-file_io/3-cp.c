@@ -3,7 +3,7 @@
 #include <stdlib.h>
 
 char *manu_buff(char *doss);
-void end_doss(int fd);
+void close_file(int fd);
 
 /**
  * manu_buff - allocates 1024 for buffer.
@@ -27,10 +27,10 @@ char *manu_buff(char *doss)
 }
 
 /**
- * end_doss - Closes file descriptors.
+ * close_file - Closes file descriptors.
  * @fd: The file descriptor to be closed.
  */
-void end_doss(int fd)
+void close_file(int fd)
 {
 	int e;
 
@@ -93,8 +93,8 @@ int main(int argc, char *argv[])
 		via = open(argv[2], O_WRONLY | O_APPEND);
 	} while (r > 0);
 	free(buff);
-	end_doss(mid);
-	end_doss(via);
+	close_file(mid);
+	close_file(via);
 
 	return (0);
 }
