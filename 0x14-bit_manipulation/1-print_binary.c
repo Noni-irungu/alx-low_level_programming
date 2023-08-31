@@ -18,11 +18,11 @@ void print_binary(unsigned long int n)
 		if (latest & 1)
 		{
 			_putchar('1');
-			latest++;
+			nonzero++;
 		}
-		else if (latest)
+		else if (nonzero)
 			_putchar('0');
 	}
-	if (!latest)
+	if (!nonzero)
 		_putchar('0');
 }
