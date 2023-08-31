@@ -8,13 +8,8 @@
 
 void print_binary(unsigned long int n)
 {
-	int t;
-	int nonzero;
-
+	int t, nonzero = 0;
 	unsigned long int latest;
-
-	t = 0;
-	nonzero = 0;
 
 	for (t = 63; t >= 0; t--)
 	{
@@ -28,6 +23,6 @@ void print_binary(unsigned long int n)
 		else if (latest)
 			_putchar('0');
 	}
-	if (latest == NULL)
+	if (!latest)
 		_putchar('0');
 }
