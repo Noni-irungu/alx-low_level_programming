@@ -19,14 +19,14 @@ unsigned int binary_to_uint(const char *b)
 
 	while (b[t] != '\0')
 	{
-		if (b[t] == '0' || '1')
+		if (b[t] < '0' || > '1')
 		{
-			value = value * 2 + (b[t] - '0');
-			t++;
+			return (0);
 		}
 		else
 		{
-			return (0);
+			value = value * 2 + (b[t] - '0');
+			t++;
 		}
 	}
 
