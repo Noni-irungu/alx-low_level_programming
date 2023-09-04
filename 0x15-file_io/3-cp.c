@@ -2,55 +2,44 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define BUFF_SIZE 1024
+char *create_buff(char *folder);
+void close_folder(int fd);
 
-void e_98(int file0, char *buff, char *argv);
-void e_99(int file0, char *buff, char *argv);
-void e_100(int file0, char *buff);
 
 /**
- * e_98 - checks for the error 98.
- * @file0: the value to check for the error.
- * @buff: the buffer
- * @argv: the argument
+ * create_buff - allocates 1024 bytes for a buffer.
+ * @folder: name of file the buffer is storing characters for
+ *
+ * Return: pointer
  */
-void e_98(int file0, char *buff, char *argv)
+char *create_buff(char *folder)
 {
-	if (file0 < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv);
-		free(buff);
-		exit(98);
-	}
-}
+	char *buff;
 
-/**
- * e_99 - checks for the error 99.
- * @file0: the value to check.
- * @buff: the buffer
- * @argv: argument
- */
-void e_99(int file0, char *buff, char *argv)
-{
-	if (file0 < 0)
+	buff = malloc(sizeof(char) * 1024);
+
+	if (buff == NULL)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv);
-		free(buff);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", folder);
 		exit(99);
 	}
+
+	return (buff);
 }
 
 /**
- * e_100 - checks for the error 100.
- * @file0: the value to check.
- * @buff: the buffer
+ * close_folder - a function that closes file descriptors.
+ * @fd: the file descriptor to be closed
  */
-void e_100(int file0, char *buff)
+void close_folder(int fd)
 {
-	if (file0 < 0)
+	int t;
+
+	t = close(fd);
+
+	if (t == -1)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", file0);
-		free(buff);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
 		exit(100);
 	}
 }
@@ -68,10 +57,9 @@ void e_100(int file0, char *buff)
  * if file_to or file_from can't be closed - exit code 100.
  */
 
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	int file0, file1, result0, result1;
-
+	int prev_ious, cur_rent, re_ad, wri_te;
 	char *buff;
 
 	if (argc != 3)
@@ -80,31 +68,35 @@ int main(int argc, char **argv)
 		exit(97);
 	}
 
-	buff = malloc(sizeof(char) * BUFF_SIZE);
-	if (!buff)
-		return (0);
-
-	file1 = open(argv[1], O_WRONLY);
-	e_98(file1, buff, argv[1]);
-	file0 = open(argv[2], O_WRONLY | O_TRUNC | O_CREAT, 0664);
-	e_99(file0, buff, argv[2]);
+	buff = create_buff(argv[2]);
+	prev_ious = open(argv[1], O_RDONLY);
+	re_ad = read(prev_ious, buff, 1024);
+	cur_rent = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
 	do {
-		result0 = read(file1, buff, BUFF_SIZE);
+		if (prev_ious == -1 || re_ad == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+			free(buff);
+			exit(98);
+		}
 
-		if (result0 == 0)
-			break;
-		e_98(result0, buff, argv[1]);
-		result1 = write(file0, buff, result0);
-		e_99(result1, buff, argv[2]);
-	}
+		wri_te = write(cur_rent, buff, re_ad);
+		if (cur_rent == -1 || wri_te == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			free(buff);
+			exit(99);
+		}
 
-	while (result1 >= BUFF_SIZE);
-	result0 = close(file0);
-	e_100(result0, buff);
-	result0 = close(file1);
-	e_100(result0, buff);
+		re_ad = read(prev_ious, buff, 1024);
+		cur_rent = open(argv[2], O_WRONLY | O_APPEND);
+
+	} while (re_ad > 0);
 
 	free(buff);
+	close_folder(prev_ious);
+	close_folder(cur_rent);
+
 	return (0);
 }
