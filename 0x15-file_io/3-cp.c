@@ -4,57 +4,6 @@
 
 #define BUFF_SIZE 1024
 
-void e_98(int file0, char *buff, char *argv);
-void e_99(int file0, char *buff, char *argv);
-void e_100(int file0, char *buff);
-
-/**
- * e_98 - checks for the error 98.
- * @file0: the value to check for the error.
- * @buff: the buffer
- * @argv: the argument
- */
-void e_98(int file0, char *buff, char *argv)
-{
-	if (file0 < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv);
-		free(buff);
-		exit(98);
-	}
-}
-
-/**
- * e_99 - checks for the error 99.
- * @file0: the value to check.
- * @buff: the buffer
- * @argv: argument
- */
-void e_99(int file0, char *buff, char *argv)
-{
-	if (file0 < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv);
-		free(buff);
-		exit(99);
-	}
-}
-
-/**
- * e_100 - checks for the error 100.
- * @file0: the value to check.
- * @buff: the buffer
- */
-void e_100(int file0, char *buff)
-{
-	if (file0 < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", file0);
-		free(buff);
-		exit(100);
-	}
-}
-
 /**
  * main - a function that copies contents of a file to another file.
  * @argc: number of arguments passed to the program
@@ -107,4 +56,51 @@ int main(int argc, char **argv)
 	e_100(result0, buff);
 	free(buff);
 	return (0);
+}
+
+/**
+ * e_98 - checks for the error 98.
+ * @file0: the value to check for the error.
+ * @buff: the buffer
+ * @argv: the argument
+ */
+void e_98(int file0, char *buff, char *argv)
+{
+	if (file0 < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv);
+		free(buff);
+		exit(98);
+	}
+}
+
+/**
+ * e_99 - checks for the error 99.
+ * @file0: the value to check.
+ * @buff: the buffer
+ * @argv: argument
+ */
+void e_99(int file0, char *buff, char *argv)
+{
+	if (file0 < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv);
+		free(buff);
+		exit(99);
+	}
+}
+
+/**
+ * e_100 - checks for the error 100.
+ * @file0: the value to check.
+ * @buff: the buffer
+ */
+void e_100(int file0, char *buff)
+{
+	if (file0 < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", file0);
+		free(buff);
+		exit(100);
+	}
 }
