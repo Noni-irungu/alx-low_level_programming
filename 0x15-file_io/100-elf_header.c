@@ -221,7 +221,7 @@ void prints_type(unsigned int e_type, unsigned char *e_ident)
 }
 
 /**
- * prinst_entry - a function that prints the entry point of an ELF header.
+ * prints_entry - a function that prints the entry point of an ELF header.
  * @e_entry: address of the ELF entry point.
  * @e_ident: pointer to an array containing the ELF class.
  */
