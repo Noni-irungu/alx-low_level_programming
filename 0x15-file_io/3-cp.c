@@ -1,6 +1,6 @@
 #include "main.h"
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 char *create_buffer(char *file);
 void close_file(int fl);
@@ -91,13 +91,13 @@ int main(int argc, char *argv[])
 			exit(99);
 		}
 
-		re = read(from, buffer, 1024);
+		re = read(frm, buffer, 1024);
 		to = open(argv[2], O_WRONLY | O_APPEND);
 
 	} while (re > 0);
 
 	free(buffer);
-	close_file(from);
+	close_file(frm);
 	close_file(to);
 
 	return (0);
