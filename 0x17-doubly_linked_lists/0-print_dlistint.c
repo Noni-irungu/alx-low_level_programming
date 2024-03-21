@@ -9,7 +9,15 @@
  */
 size_t print_dlistint(const dlistint_t *h)
 {
-	size_t nd_cnt = 0;
+	int nd_cnt;
+
+	nd_cnt = 0;
+
+	if (h == NULL)
+		return (nd_cnt);
+
+	while (h->prev != NULL)
+		h = h->prev;
 
 	while (h != NULL)
 	{
